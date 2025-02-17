@@ -3,7 +3,7 @@ name: PR Build Check
 on:
   pull_request:
     branches:
-      - main 
+      - main
 
 jobs:
   build:
@@ -16,13 +16,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x' 
+          python-version: '3.x'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r src/requirements.txt  # Change this if your project has dependencies
+          pip install -r src/requirements.txt
+
+      - name: Verify CODEOWNERS Approval
+        uses: your-org/verify-codeowners-action@v1
+        with:
+          github_token: "MOCK_GITHUB_TOKEN"  # Use a dummy token for testing
+          codeowners_file: ".github/CODEOWNERS"
+          pr_number: ${{ github.event.pull_request.number }}
+          min_approval: 1
 
       - name: Run build/test
         run: |
-          python src/main.py  
+          python src/main.py
