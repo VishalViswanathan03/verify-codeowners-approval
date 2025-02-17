@@ -24,7 +24,7 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: Verify CODEOWNERS Approval
-        uses: your-org/verify-codeowners-action@v1
+        uses: ./.github/actions/verify-codeowners
         with:
           github_token: "MOCK_GITHUB_TOKEN"  # Use a dummy token for testing
           codeowners_file: ".github/CODEOWNERS"
