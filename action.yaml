@@ -1,0 +1,26 @@
+name: 'Verify CODEOWNERS Approval'
+description: 'Checks if the required number of CODEOWNERS have approved the PR before merging.'
+
+inputs:
+  github_token:
+    description: 'GitHub Token to authenticate API requests (required)'
+    required: true
+  codeowners_file:
+    description: 'Path to the CODEOWNERS file (default: .github/CODEOWNERS)'
+    required: false
+    default: '.github/CODEOWNERS'
+  pr_number:
+    description: 'Pull request number (default: event PR number)'
+    required: false
+  min_approval:
+    description: 'Minimum number of required approvals for PR (default: 1)'
+    required: false
+    default: 1
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: 'check-circle'
+  color: 'blue'
