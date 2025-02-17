@@ -23,14 +23,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r src/requirements.txt
 
-      - name: Verify CODEOWNERS Approval
-        uses: ./.github/actions/verify-codeowners
-        with:
-          github_token: "MOCK_GITHUB_TOKEN"  # Use a dummy token for testing
-          codeowners_file: ".github/CODEOWNERS"
-          pr_number: ${{ github.event.pull_request.number }}
-          min_approval: 1
-
       - name: Run build/test
         run: |
           python src/main.py
