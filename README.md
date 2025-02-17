@@ -1,16 +1,15 @@
-# PR Build Check (Python + Docker)
+# Verify CODEOWNERS Approval
 
 ## Overview
 
-The **PR Build Check** GitHub Action ensures that a pull request (PR) meets the necessary build and approval requirements before merging. This action:
-- Executes a **Python script** for additional validations.
-- Builds and verifies a **Docker image** to ensure successful deployment.
-- Checks the **minimum number of required approvals** from CODEOWNERS.
+The **Verify CODEOWNERS Approval** GitHub Action ensures that a pull request (PR) meets the required number of approvals from CODEOWNERS before merging. This action:
+- Fetches the list of **CODEOWNERS** for the modified files.
+- Verifies if the **minimum required approvals** have been met.
+- Ensures compliance with repository **CODEOWNERS policies**.
 
 ## Features
 - **Automatic PR Verification**: Runs the checks whenever a PR is opened or updated.
-- **CODEOWNERS Compliance**: Verifies that required approvals are met.
-- **Docker Image Validation**: Ensures that the PR does not break the build.
+- **CODEOWNERS Compliance**: Ensures that only authorized owners approve changes.
 - **Customizable Inputs**: Configure via workflow inputs.
 
 ---
@@ -28,10 +27,10 @@ The **PR Build Check** GitHub Action ensures that a pull request (PR) meets the 
 
 ## Example Usage
 
-### **GitHub Workflow File (`.github/workflows/pr-build-check.yml`)**
+### **GitHub Workflow File (`.github/workflows/verify-codeowners-approval.yml`)**
 
 ```yaml
-name: PR Build Check (Python + Docker)
+name: Verify CODEOWNERS Approval
 
 on:
   pull_request:
@@ -39,15 +38,15 @@ on:
       - main
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: PR Build Check
-        uses: your-org/pr-build-check-action@v1
+      - name: Verify CODEOWNERS Approval
+        uses: your-org/verify-codeowners-approval-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           min_approval: 2
@@ -60,7 +59,7 @@ jobs:
 project-root/
 ├── .github/
 │   ├── workflows/
-│   │   ├── pr-build-check.yml
+│   │   ├── verify-codeowners-approval.yml
 │   ├── CODEOWNERS
 ├── action.yml
 ├── Dockerfile
@@ -72,7 +71,7 @@ project-root/
 ---
 
 ## Installation and Setup
-1. **Add the action to your repository** under `.github/workflows/pr-build-check.yml`.
+1. **Add the action to your repository** under `.github/workflows/verify-codeowners-approval.yml`.
 2. **Provide the required `GITHUB_TOKEN`** in your workflow.
 3. **Customize `min_approval` if needed**.
 4. **Ensure your repository has a `CODEOWNERS` file**.
@@ -80,9 +79,8 @@ project-root/
 ---
 
 ## How It Works
-- The **Python script (`main.py`)** runs validations.
-- The **Docker build process** ensures the container builds successfully.
-- The **GitHub API** is used to check PR approvals.
+- The **Python script (`main.py`)** checks the approvals from CODEOWNERS.
+- The **GitHub API** is used to verify the PR approvals.
 
 ---
 
